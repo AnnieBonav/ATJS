@@ -21,6 +21,7 @@ soundObj.forEach(sound => {
     button.textContent = sound.name
 
     button.addEventListener('click', () =>{
+        audio.currentTime = 0;
         audio.play()
         button.classList.add('playing')
     })
@@ -31,3 +32,8 @@ soundObj.forEach(sound => {
 
     document.getElementById('buttons').append(button)
 });
+
+/*
+document.addEventListener('click', (){
+
+})*/
