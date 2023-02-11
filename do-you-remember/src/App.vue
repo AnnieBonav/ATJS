@@ -1,11 +1,11 @@
 <template>
-  <div class="min-h-screen w-screen bg-background">
+  <div class="max-w-screen min-h-screen w-screen bg-background p-6">
     <div>
       <h1>Turns: {{ turns }}</h1>
       <h1>Cards left: {{ cardsLeft }}</h1>
       <h1>Counter: {{ counter }}</h1>
     </div>
-    <div class="flex flex-column flex-wrap gap-4">
+    <div class="grid grid-cols-4 gap-4">
       <div v-for="card in cards">
         <Card :data="card" v-on:click="clickCard(card)" />
       </div>
@@ -18,6 +18,8 @@ import { defineComponent, PropType } from "vue";
 import { CardData, CardModel } from "./card-data/types";
 import Card from "./components/Card.vue"
 import cardset from "./card-data/cards";
+import { shuffle } from "./card-data/utils"
+import cards from "./card-data/cards";
 
 const cards = cardset.reduce(
   (acc, curr) =>
@@ -35,13 +37,12 @@ export default defineComponent({
 
   data(){
     return {
-      cards: cards,
+      cards: shuffle(cards),
       turns: 0,
       cardsLeft: cards.length,
       openedCard: null as CardData | null,
       counter : 0,
       isWaiting: false,
-
     };
   },
     methods: {
