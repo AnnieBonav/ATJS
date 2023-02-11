@@ -12,13 +12,14 @@ const cards = cardset.reduce(
   <CardData[]>[]
 )
 
-
-const arr = [1, 2, 3];
 </script>
 
 <template>
   <div class="min-h-screen w-screen bg-background">
-    <div class="flex flex-wrap flex-row">
+    <div>
+      <h1>Turns: {{ turns }}</h1>
+    </div>
+    <div class="flex flex-column flex-wrap gap-4">
       <div v-for="card in cards">
         <Card :data="card" v-on:click="clickCard(card)" />
       </div>
@@ -35,12 +36,19 @@ export default defineComponent({
             type: Object as PropType<CardData>,
             required: true,
         },
-
+    },
+    data(){
+      return {
+        turns: 0,
+        cardsLeft: 0,
+      };
     },
     methods: {
         clickCard: function (card: CardData) {
-            card.isSelected = !card.isSelected
-            console.log(card.isSelected)
+          card.isSelected = !card.isSelected
+          this.turns += 1
+          console.log(card.isSelected, " ", card.type)
+          return;
         }
     }
 });

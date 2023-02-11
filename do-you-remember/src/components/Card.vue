@@ -2,13 +2,15 @@
 </script>
 
 <template>
-    <div class="flex justify-center">
-        <div class="block p-6 rounded-lg shadow-lg bg-primary-900 max-w-sm hover:bg-hovered">
+    <div class="flex-1 p-6 rounded-lg justify-center items-center shadow-lg bg-primary-900 max-w-sm hover:bg-hovered aspect-square flex">
+        <div v-if="data.isSelected == true">
             <h5 class="text-gray-800 text-xl leading-tight font-medium mb-4">
                 {{ data.type == "author" ? data.card.key : data.card.text }}
             </h5>
         </div>
+        <div v-else class = "p-6"></div>
     </div>
+    
 </template>
 
 <script lang="ts">
