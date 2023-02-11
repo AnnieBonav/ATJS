@@ -1,6 +1,6 @@
 import cuid from 'cuid'
 
-const sounds = ['clap', 'hihat', 'kick', 'perc', 'snare', 'tom']
+const sounds = ['clap', 'hihat', 'kick', 'perc', 'snare', 'tom', 'annie']
 
 const soundObjs = sounds.reduce((acc, sound) => {
     acc.push({

@@ -21,12 +21,14 @@ async function drawCard() {
   const { cards } = await fetch(drawCardAPI.value).then((r) => r.json());
   lastCard.value = cards[0];
 
-  validateResult(lastCard.value.suit);
+  validateResult(lastCard.suit);
 }
 
 function validateResult(suit) {
   const reds = ['HEARTS', 'DIAMONDS'];
   const blacks = ['SPADES', 'CLUBS'];
+
+  console.log('Validate');
 
   if (currentGuess.value == 'RED') {
     return reds.includes(suit) ? score.value++ : null;
