@@ -1,23 +1,9 @@
-<script setup lang="ts">
-import Card from "./components/Card.vue"
-import cardset from "./card-data/cards";
-import { CardData } from "./card-data/types";
-
-const cards = cardset.reduce(
-  (acc, curr) =>
-    acc.concat([
-      { card: curr, type: "author", isSelected: false },
-      { card: curr, type: "song", isSelected: false },
-    ]),
-  <CardData[]>[]
-)
-
-</script>
-
 <template>
   <div class="min-h-screen w-screen bg-background">
     <div>
       <h1>Turns: {{ turns }}</h1>
+      <h1>Cards left: {{ cardsLeft }}</h1>
+      <h1>Counter: {{ counter }}</h1>
     </div>
     <div class="flex flex-column flex-wrap gap-4">
       <div v-for="card in cards">
@@ -29,26 +15,67 @@ const cards = cardset.reduce(
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
+import { CardData, CardModel } from "./card-data/types";
+import Card from "./components/Card.vue"
+import cardset from "./card-data/cards";
+
+const cards = cardset.reduce(
+  (acc, curr) =>
+    acc.concat([
+      { card: curr, type: "author", isSelected: false },
+      { card: curr, type: "song", isSelected: false },
+    ]),
+  <CardData[]>[]
+)
 
 export default defineComponent({
-    props: {
-        data: {
-            type: Object as PropType<CardData>,
-            required: true,
-        },
-    },
-    data(){
-      return {
-        turns: 0,
-        cardsLeft: 0,
-      };
-    },
+  components: {
+    Card,
+  },
+
+  data(){
+    return {
+      cards: cards,
+      turns: 0,
+      cardsLeft: cards.length,
+      openedCard: null as CardData | null,
+      counter : 0,
+      isWaiting: false,
+
+    };
+  },
     methods: {
         clickCard: function (card: CardData) {
-          card.isSelected = !card.isSelected
-          this.turns += 1
-          console.log(card.isSelected, " ", card.type)
-          return;
+          if(card.isSelected || this.isWaiting){ //Card is already selected or I am waiting and they are being supper annoying
+            return;
+          }
+          this.counter ++;
+          card.isSelected = true; //Select card
+
+          if(!this.openedCard){ //Checks if it is null, if it is it is the first one to be opened
+            this.openedCard = card;
+            console.log("Here  ", this.openedCard);
+            return;
+          }
+
+          this.turns++; //A second one was selected, so the turn is done
+
+          if(this.openedCard.card.key === card.card.key){ //If they belong to the same author
+            this.cardsLeft -=2;
+            this.openedCard = null;
+            return;
+          }else {
+            this.isWaiting = true;
+            setTimeout(() => {
+              if (this.openedCard) {
+                this.openedCard.isSelected = false;
+              }
+              card.isSelected = false;
+              this.openedCard = null;
+
+              this.isWaiting = false;
+            }, 1000);
+          }
         }
     }
 });

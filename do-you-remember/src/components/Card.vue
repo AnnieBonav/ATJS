@@ -23,6 +23,11 @@ export default defineComponent({
             type: Object as PropType<CardData>,
             required: true,
         },
+    },
+    init() {
+        const audioURL = (song: string) =>
+            new URL(`../assets/audios/song`, import.meta.url).href;
+        return { audioURL }
     }
 });
 </script>
