@@ -9,7 +9,7 @@ const cards: CardModel[] = [
         text: "96,000",
         key: "In the Heights",
         audioSrc: ""
-    },
+    },/*
     {
         text: "Playground",
         key: "Arcane",
@@ -49,7 +49,7 @@ const cards: CardModel[] = [
         text: "Pop, six, squish, Uh Uh, Cicero, Lipschitz",
         key: "Chicago",
         audioSrc: ""
-    },
+    },*/
 ];
 
 export default cards;

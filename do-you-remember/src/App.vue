@@ -1,15 +1,17 @@
 <template>
   <div class="max-w-screen min-h-screen w-screen bg-background p-6">
-    <div>
-      <h1>Turns: {{ turns }}</h1>
-      <h1>Cards left: {{ cardsLeft }}</h1>
-      <h1>Counter: {{ counter }}</h1>
+    <div class="flex flex-row space-x-10">
+      <button class="text-xl rounded-lg p-2 bg-primary-900 mb-2" v-on:click="restart()">Restart</button>
+      <h1 class="text-xl">Do you remember</h1>
+      <h2 class="text-xl">Turn: {{ turns }}</h2>
     </div>
     <div class="grid grid-cols-4 gap-4">
       <div v-for="card in cards">
         <Card :data="card" v-on:click="clickCard(card)" />
       </div>
     </div>
+    <h1>Cards left: {{ cardsLeft }}</h1>
+    <h1>Counter: {{ counter }}</h1>
   </div>
 </template>
 
@@ -19,7 +21,6 @@ import { CardData, CardModel } from "./card-data/types";
 import Card from "./components/Card.vue"
 import cardset from "./card-data/cards";
 import { shuffle } from "./card-data/utils"
-import cards from "./card-data/cards";
 
 const cards = cardset.reduce(
   (acc, curr) =>
@@ -46,6 +47,13 @@ export default defineComponent({
     };
   },
     methods: {
+        restart: function(){
+          console.log("I restarted, lol");
+          this.openedCard = null;
+          this.counter = 0;
+          this.turns = 0;
+          this.cards = shuffle(this.cards);
+        },
         clickCard: function (card: CardData) {
           if(card.isSelected || this.isWaiting){ //Card is already selected or I am waiting and they are being supper annoying
             return;
