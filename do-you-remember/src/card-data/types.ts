@@ -8,6 +8,6 @@ type CardType = "author" | "song";
 
 export interface CardData {
     type: CardType;
-    card: CardModel;
+    info: CardModel;
     isSelected: boolean;
 }

@@ -11,7 +11,6 @@
       </div>
     </div>
     <h1>Cards left: {{ cardsLeft }}</h1>
-    <h1>Counter: {{ counter }}</h1>
   </div>
 </template>
 
@@ -25,8 +24,8 @@ import { shuffle } from "./card-data/utils"
 const cards = cardset.reduce(
   (acc, curr) =>
     acc.concat([
-      { card: curr, type: "author", isSelected: false },
-      { card: curr, type: "song", isSelected: false },
+      { info: curr, type: "author", isSelected: false },
+      { info: curr, type: "song", isSelected: false },
     ]),
   <CardData[]>[]
 )
@@ -48,39 +47,37 @@ export default defineComponent({
   },
   methods: {
     restart: function (selection: boolean | null) {
-      if(selection == null){ //Checks if null?
-        console.log("I am null");
+      if (selection == null) {
         selection = window.confirm("Are you sure you want to restart?");
       }
       if (selection) {
-        this.cards = cards.map(card => {
+        this.cards = shuffle(cards.map(card => {
           return { ...card, isSelected: false }
-        });
-        this.counter = 0;
-        this.turns = 0;
-        this.cards = shuffle(this.cards);
+        }));
+        this.counter, this.turns = 0;
         this.cardsLeft = cards.length;
       }
     },
     won: function () {
-      const selection = window.confirm("You won, bitch! Click ok to restart and cancel if you want to admire your board.");
-      this.restart(selection);
+      setTimeout(() => { //With no timeout the alert appears before the UI is updated
+        const selection = window.confirm("You won, bitch! Click ok to restart and cancel if you want to admire your board.");
+        this.restart(selection);
+        }, 10);
     },
     clickCard: function (card: CardData) {
-      if (card.isSelected || this.isWaiting) { //Card is already selected or I am waiting and they are being supper annoying
+      if (card.isSelected || this.isWaiting) {
         return;
       }
-      this.counter++;
-      card.isSelected = true; //Select card
+      card.isSelected = true;
 
-      if (!this.openedCard) { //Checks if it is null, if it is it is the first one to be opened
+      if (!this.openedCard) {
         this.openedCard = card;
         return;
       }
 
-      this.turns++; //A second one was selected, so the turn is done
+      this.turns++;
 
-      if (this.openedCard.card.key === card.card.key) { //If they belong to the same author
+      if (this.openedCard.info.key === card.info.key) {
         this.cardsLeft -= 2;
         this.openedCard = null;
 
@@ -95,7 +92,6 @@ export default defineComponent({
           }
           card.isSelected = false;
           this.openedCard = null;
-
           this.isWaiting = false;
         }, 1000);
       }
