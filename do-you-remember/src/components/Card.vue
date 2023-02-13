@@ -10,9 +10,7 @@
             </h5>
         </div>
         <div v-else class="p-6">
-            <h5 class="text-gray-100 text-xl leading-tight font-medium mb-4">
-                {{ data.type == "author" ? data.info.key : data.info.text }}
-            </h5>
+            
         </div>
     </div>
 

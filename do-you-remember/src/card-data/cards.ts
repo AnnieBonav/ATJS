@@ -9,9 +9,9 @@ const cards: CardModel[] = [
         text: "96,000",
         key: "In the Heights",
         audioSrc: ""
-    },/*
+    },
     {
-        text: "Playground",
+        text: "Welcome to the playground, follow me",
         key: "Arcane",
         audioSrc: ""
     },
@@ -41,15 +41,15 @@ const cards: CardModel[] = [
         audioSrc: ""
     },
     {
-        text: "Who are you? The man who is gonna marry you.",
-        key: "Hades Town",
+        text: "I was six when I told them I'd be a pilot",
+        key: "Come from away",
         audioSrc: ""
     },
     {
         text: "Pop, six, squish, Uh Uh, Cicero, Lipschitz",
         key: "Chicago",
         audioSrc: ""
-    },*/
+    },
 ];
 
 export default cards;
