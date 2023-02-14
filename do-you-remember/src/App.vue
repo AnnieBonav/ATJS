@@ -1,4 +1,12 @@
 <template>
+  <audio
+  :src="currentAudio"
+  @ended="
+      () => {
+        isPlaying = false;
+      }
+    "
+  ref="audio"></audio>
   <div class="max-w-screen min-h-screen w-screen bg-background p-6">
     <div class="flex flex-row space-x-10">
       <button class="text-xl rounded-lg p-2 bg-primary-900 mb-2" v-on:click="restart(null)">Restart</button>
@@ -11,6 +19,7 @@
       </div>
     </div>
     <h1>Cards left: {{ cardsLeft }}</h1>
+    <button @click="playSound">Play</button>
   </div>
 </template>
 
@@ -20,6 +29,9 @@ import { CardData, CardModel } from "./card-data/types";
 import Card from "./components/Card.vue"
 import cardset from "./card-data/cards";
 import { shuffle } from "./card-data/utils"
+import { ref } from 'vue';
+
+const audio = ref<any>(null);
 
 const cards = cardset.reduce(
   (acc, curr) =>
@@ -43,6 +55,10 @@ export default defineComponent({
       openedCard: null as CardData | null,
       counter: 0,
       isWaiting: false,
+      currentAudio: `./assets/audios/Hadestown_ComeHome.mp3`,
+      //myAudio: audio,
+      //theAudio: ref(null),
+      isPlaying: false,
     };
   },
   methods: {
@@ -64,12 +80,27 @@ export default defineComponent({
         this.restart(selection);
         }, 10);
     },
+    playSound: function(){
+      (this.$refs.audio as HTMLAudioElement).play();
+      setTimeout(() => { //With no timeout the alert appears before the UI is updated
+        this.stopSound();
+        }, 5000);
+    },
+    stopSound: function(){
+      this.isPlaying = false;
+      (this.$refs.audio as HTMLAudioElement).pause();
+
+    },
     clickCard: function (card: CardData) {
       if (card.isSelected || this.isWaiting) {
         return;
       }
       card.isSelected = true;
-
+      if(card.type === "song"){
+        this.currentAudio = `./assets/audios/${card.info.audioSrc}.mp3`
+        console.log("Song: ", this.currentAudio);
+        this.playSound();
+      }
       if (!this.openedCard) {
         this.openedCard = card;
         return;

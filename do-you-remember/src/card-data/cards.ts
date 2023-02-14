@@ -1,10 +1,15 @@
 import { CardModel } from "./types";
 const cards: CardModel[] = [
     {
-        text: "That would be enough",
+        text: "I am not throwing away my shot",
         key: "Hamilton",
-        audioSrc: ""
+        audioSrc: "Hamilton_MyShot"
     },
+    {
+        text: "Who are you? The man who is gonna marry you.",
+        key: "Hades Town",
+        audioSrc: "Hadestown_ComeHome"
+    },/*
     {
         text: "96,000",
         key: "In the Heights",
@@ -31,11 +36,6 @@ const cards: CardModel[] = [
         audioSrc: ""
     },
     {
-        text: "Who are you? The man who is gonna marry you.",
-        key: "Hades Town",
-        audioSrc: ""
-    },
-    {
         text: "I know exactly where I am going...I am almost there.",
         key: "The princess and the Frog",
         audioSrc: ""
@@ -49,7 +49,7 @@ const cards: CardModel[] = [
         text: "Pop, six, squish, Uh Uh, Cicero, Lipschitz",
         key: "Chicago",
         audioSrc: ""
-    },
+    },*/
 ];
 
 export default cards;
