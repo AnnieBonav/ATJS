@@ -1,6 +1,5 @@
 <template>
   <audio
-  :src="currentAudio"
   @ended="
       () => {
         isPlaying = false;
@@ -19,7 +18,6 @@
       </div>
     </div>
     <h1>Cards left: {{ cardsLeft }}</h1>
-    <button @click="playSound">Play</button>
   </div>
 </template>
 
@@ -55,9 +53,6 @@ export default defineComponent({
       openedCard: null as CardData | null,
       counter: 0,
       isWaiting: false,
-      currentAudio: `./assets/audios/Hadestown_ComeHome.mp3`,
-      //myAudio: audio,
-      //theAudio: ref(null),
       isPlaying: false,
     };
   },
@@ -80,11 +75,9 @@ export default defineComponent({
         this.restart(selection);
         }, 10);
     },
-    playSound: function(){
+    playSound: function(src: string){
+      (this.$refs.audio as HTMLAudioElement).src = src;
       (this.$refs.audio as HTMLAudioElement).play();
-      setTimeout(() => { //With no timeout the alert appears before the UI is updated
-        this.stopSound();
-        }, 5000);
     },
     stopSound: function(){
       this.isPlaying = false;
@@ -97,9 +90,7 @@ export default defineComponent({
       }
       card.isSelected = true;
       if(card.type === "song"){
-        this.currentAudio = `./assets/audios/${card.info.audioSrc}.mp3`
-        console.log("Song: ", this.currentAudio);
-        this.playSound();
+        this.playSound(`./assets/audios/${card.info.audioSrc}.mp3`);
       }
       if (!this.openedCard) {
         this.openedCard = card;
@@ -120,6 +111,7 @@ export default defineComponent({
         setTimeout(() => {
           if (this.openedCard) {
             this.openedCard.isSelected = false;
+            this.stopSound();
           }
           card.isSelected = false;
           this.openedCard = null;
