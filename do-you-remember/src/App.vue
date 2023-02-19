@@ -9,12 +9,49 @@
         ref="audio"
     ></audio>
     <div class="max-w-screen min-h-screen w-screen bg-background p-6">
-        <div class="flex flex-row space-x-10">
+        <Modal
+            title="Restart"
+            body="Annie will get me some text later"
+            @confirm="() => restart()"
+            @cancel="() => setRestartModalState(false)"
+            :show="showRestartModal"
+            confirmPrompt="Restart"
+            cancelPrompt="Close"
+        />
+        <Modal
+            title="You won bitch!"
+            body="Annie will get me some text later uwu"
+            @confirm="() => restart()"
+            @cancel="() => setVictoryModalState(false)"
+            :show="showVictoryModal"
+            confirmPrompt="New Game!"
+            cancelPrompt="Close"
+        />
+
+        <div class="flex flex-row space-x-10 mb-3 justify-center items-center">
             <button
-                class="text-xl rounded-lg p-2 bg-primary-900 mb-2"
+                class="transform transition duration-200 hover:scale-110"
+                v-on:click="setRestartModalState(true)"
+            >
+                <svg
+                    width="50"
+                    height="50"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                >
+                    <path
+                        d="M32.5 224H24c-13.3 0-24-10.7-24-24V72c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2L82.6 96.6c87.6-86.5 228.7-86.2 315.8 1c87.5 87.5 87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3c-62.2-62.2-162.7-62.5-225.3-1L169 183c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8H32.5z"
+                    />
+                </svg>
+            </button>
+            <h1 class="text-4xl flex-auto text-title">Do you remember</h1>
+            <h2 class="text-xl">Turn: {{ turns }}</h2>
+            <button
+                class="transform transition duration-200 hover:scale-110"
                 v-on:click="mute()"
             >
                 <svg
+                    class="mr-[26px]"
                     v-if="isMuted"
                     width="25"
                     height="50"
@@ -30,7 +67,7 @@
                 <svg
                     v-else
                     width="51"
-                    height="51"
+                    height="50"
                     viewBox="0 0 51 51"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -41,21 +78,12 @@
                     />
                 </svg>
             </button>
-            <button
-                class="text-xl rounded-lg p-2 bg-primary-900 mb-2"
-                v-on:click="restart(null)"
-            >
-                Restart
-            </button>
-            <h1 class="text-xl">Do you remember</h1>
-            <h2 class="text-xl">Turn: {{ turns }}</h2>
         </div>
         <div class="grid grid-cols-4 gap-4">
             <div v-for="card in cards">
                 <Card :data="card" v-on:click="clickCard(card)" />
             </div>
         </div>
-        <h1>Cards left: {{ cardsLeft }}</h1>
     </div>
 </template>
 
@@ -63,6 +91,7 @@
 import { defineComponent, PropType } from "vue";
 import { CardData, CardModel } from "./card-data/types";
 import Card from "./components/Card.vue";
+import Modal from "./components/Modal.vue";
 import cardset from "./card-data/cards";
 import { shuffle } from "./card-data/utils";
 import { ref } from "vue";
@@ -81,6 +110,7 @@ const cards = cardset.reduce(
 export default defineComponent({
     components: {
         Card,
+        Modal,
     },
 
     data() {
@@ -93,34 +123,34 @@ export default defineComponent({
             isWaiting: false,
             isPlaying: false,
             isMuted: false,
+            showRestartModal: false,
+            showVictoryModal: false,
         };
     },
     methods: {
         mute: function () {
             this.isMuted = !this.isMuted;
         },
-        restart: function (selection: boolean | null) {
-            if (selection == null) {
-                selection = window.confirm("Are you sure you want to restart?");
-            }
-            if (selection) {
-                this.cards = shuffle(
-                    cards.map((card) => {
-                        return { ...card, isSelected: false };
-                    })
-                );
-                this.counter, (this.turns = 0);
-                this.cardsLeft = cards.length;
-            }
+        restart: function () {
+            this.cards = shuffle(
+                cards.map((card) => {
+                    return { ...card, isSelected: false };
+                })
+            );
+            this.counter, (this.turns = 0);
+            this.cardsLeft = cards.length;
+            this.setRestartModalState(false);
+            this.setVictoryModalState(false);
+        },
+        setRestartModalState: function (state: boolean) {
+            console.log("setting restart to", state);
+            this.showRestartModal = state;
+        },
+        setVictoryModalState: function (state: boolean) {
+            this.showVictoryModal = state;
         },
         won: function () {
-            setTimeout(() => {
-                //With no timeout the alert appears before the UI is updated
-                const selection = window.confirm(
-                    "You won, bitch! Click ok to restart and cancel if you want to admire your board."
-                );
-                this.restart(selection);
-            }, 10);
+            this.setVictoryModalState(true);
         },
         playSound: function (src: string) {
             (this.$refs.audio as HTMLAudioElement).src = src;
@@ -148,6 +178,7 @@ export default defineComponent({
             if (this.openedCard.info.key === card.info.key) {
                 this.cardsLeft -= 2;
                 this.openedCard = null;
+                this.stopSound();
 
                 if (this.cardsLeft <= 0) {
                     this.won();

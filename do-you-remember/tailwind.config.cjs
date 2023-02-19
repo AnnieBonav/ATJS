@@ -10,9 +10,9 @@ module.exports = {
         "primary": {
           900: "#FD8A5F",
           800: "#F08962"
-
         },
         "selected": "#B84A21",
+        "title": "#671C00",
         "hovered": "#E16E43",
         "background": "#FFFAF9"
       },
