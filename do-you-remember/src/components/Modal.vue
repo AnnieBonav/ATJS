@@ -1,5 +1,4 @@
 <template>
-    <!-- Restart Modal -->
     <div
         class="relative z-10"
         aria-labelledby="modal-title"
