@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "cuid": "^2.1.8",
+    "pinia": "^2.0.31",
     "vue": "^3.2.41",
     "vue-router": "^4.1.6"
   },
