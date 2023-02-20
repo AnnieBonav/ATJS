@@ -11,7 +11,6 @@
         </div>
         <div v-else class="p-6">
             <h5 class="text-gray-200 text-xl leading-tight font-medium mb-4">
-                {{ data.type == "author" ? data.info.key : data.info.text }}
             </h5>
         </div>
     </div>

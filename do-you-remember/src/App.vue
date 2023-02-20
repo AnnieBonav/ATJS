@@ -1,4 +1,6 @@
 <template>
+    <ConfettiExplosion v-if="showConfetti" 
+    ref="confetti"/>
     <audio
         :muted="isMuted"
         @ended="
@@ -19,7 +21,7 @@
             cancelPrompt="Close"
         />
         <Modal
-            title="You won bitch!"
+            title="You won!"
             body="Annie will get me some text later uwu"
             @confirm="() => restart()"
             @cancel="() => setVictoryModalState(false)"
@@ -79,7 +81,7 @@
                 </svg>
             </button>
         </div>
-        <div class="grid grid-cols-4 gap-4">
+        <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
             <div v-for="card in cards">
                 <Card :data="card" v-on:click="clickCard(card)" />
             </div>
@@ -94,9 +96,17 @@ import Card from "./components/Card.vue";
 import Modal from "./components/Modal.vue";
 import cardset from "./card-data/cards";
 import { shuffle } from "./card-data/utils";
-import { ref } from "vue";
+import { nextTick, ref } from "vue";
+import ConfettiExplosion from "vue-confetti-explosion";
 
 const audio = ref<any>(null);
+const confetti = ref<any>(null);
+
+const explode = async () => {
+    confetti.value = false;
+    await nextTick();
+    confetti.value = true;
+};
 
 const cards = cardset.reduce(
     (acc, curr) =>
@@ -125,11 +135,15 @@ export default defineComponent({
             isMuted: false,
             showRestartModal: false,
             showVictoryModal: false,
+            showConfetti: true,
         };
     },
     methods: {
         mute: function () {
             this.isMuted = !this.isMuted;
+        },
+        explodeConfetti: function(){
+
         },
         restart: function () {
             this.cards = shuffle(
@@ -148,9 +162,12 @@ export default defineComponent({
         },
         setVictoryModalState: function (state: boolean) {
             this.showVictoryModal = state;
+
         },
         won: function () {
             this.setVictoryModalState(true);
+            //Confetti
+            explode();
         },
         playSound: function (src: string) {
             (this.$refs.audio as HTMLAudioElement).src = src;
