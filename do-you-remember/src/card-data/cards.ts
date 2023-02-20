@@ -13,42 +13,42 @@ const cards: CardModel[] = [
     {
         text: "96,000",
         key: "In the Heights",
-        audioSrc: "",
+        audioSrc: "InTheHeights_96000",
     },
     {
         text: "Welcome to the playground, follow me",
         key: "Arcane",
-        audioSrc: "",
+        audioSrc: "Arcane_Playground",
     },
     {
         text: "What the heck I gotta do to be with you?",
         key: "21 Chump street",
-        audioSrc: "",
+        audioSrc: "21ChumpStreetWhatTheHeck",
     },
     {
-        text: "All you wanna do, all you wanna so baby...",
+        text: "All you wanna do, all you wanna do baby...",
         key: "Six",
-        audioSrc: "",
+        audioSrc: "Six_AllYouWannaDo",
     },
     {
         text: "Pressure that'll tip,tip,tip, 'til you just go pop",
         key: "Encanto",
-        audioSrc: "",
+        audioSrc: "Encanto_SurfacePressure",
     },
     {
         text: "I know exactly where I am going...I am almost there.",
         key: "The princess and the Frog",
-        audioSrc: "",
+        audioSrc: "PrincessAndTheFrog_AlmostThere",
     },
     {
-        text: "I was six when I told them I'd be a pilot",
+        text: "I was eight when I told them that I'd be a pilot",
         key: "Come from away",
-        audioSrc: "",
+        audioSrc: "ComeFromAway_MeAndTheSky",
     },
     {
         text: "Pop, six, squish, Uh Uh, Cicero, Lipschitz",
         key: "Chicago",
-        audioSrc: "",
+        audioSrc: "Chicago_CellBlockTango",
     },
 ];
 
