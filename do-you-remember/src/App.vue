@@ -13,21 +13,21 @@
     <div class="max-w-screen min-h-screen w-screen bg-background p-6">
         <Modal
             title="Restart"
-            body="Annie will get me some text later"
+            body="Do you want to try again?"
             @confirm="() => restart()"
             @cancel="() => setRestartModalState(false)"
             :show="showRestartModal"
-            confirmPrompt="Restart"
-            cancelPrompt="Close"
+            confirmPrompt="Yes, restart"
+            cancelPrompt="Nah, cancel"
         />
         <Modal
             title="You won!"
-            body="Annie will get me some text later uwu"
+            body="Wanna appreciate your finished board?"
             @confirm="() => restart()"
             @cancel="() => setVictoryModalState(false)"
             :show="showVictoryModal"
-            confirmPrompt="New Game!"
-            cancelPrompt="Close"
+            confirmPrompt="I am good, New Game!"
+            cancelPrompt="Yes."
         />
 
         <div class="flex flex-row space-x-10 mb-3 justify-center items-center">
