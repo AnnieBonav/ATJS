@@ -17,7 +17,7 @@ This repo contains two main folders: class and do-you-remember; Which correspond
 It was made using Typescript, Vue, Vite, tailwind and other libraries.
 
 ## Authors and acknowledgment
-Me, Ana Bonavides Aguilar, was the developer. And shotout to Giocko for helping out with the somngs curation!
+Me, Ana Bonavides Aguilar, was the developer. And shotout to Giocko for helping out with the songs curation!
 
 ## License
 It is Open Source under MIT licence.

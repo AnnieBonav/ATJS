@@ -10,5 +10,4 @@ export interface CardData {
     type: CardType;
     info: CardModel;
     isSelected: boolean;
-    //isPlaying: boolean;
 }

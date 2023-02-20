@@ -10,8 +10,9 @@
             </h5>
         </div>
         <div v-else class="p-6">
-            <h5 class="text-gray-200 text-xl leading-tight font-medium mb-4">
-            </h5>
+            <h5
+                class="text-gray-200 text-xl leading-tight font-medium mb-4"
+            ></h5>
         </div>
     </div>
 </template>

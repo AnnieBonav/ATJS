@@ -25,7 +25,7 @@
             @cancel="() => setVictoryModalState(false)"
             :show="showVictoryModal"
             confirmPrompt="I am good, New Game!"
-            cancelPrompt="Yes."
+            cancelPrompt="Yes, let me see!"
         />
 
         <div class="flex flex-row space-x-10 mb-3 justify-center items-center">
