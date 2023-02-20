@@ -1,6 +1,4 @@
 <template>
-    <ConfettiExplosion v-if="showConfetti" 
-    ref="confetti"/>
     <audio
         :muted="isMuted"
         @ended="
@@ -90,23 +88,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { CardData, CardModel } from "./card-data/types";
+import { defineComponent } from "vue";
+import { CardData } from "./card-data/types";
 import Card from "./components/Card.vue";
 import Modal from "./components/Modal.vue";
 import cardset from "./card-data/cards";
 import { shuffle } from "./card-data/utils";
-import { nextTick, ref } from "vue";
-import ConfettiExplosion from "vue-confetti-explosion";
+import { ref } from "vue";
 
 const audio = ref<any>(null);
-const confetti = ref<any>(null);
-
-const explode = async () => {
-    confetti.value = false;
-    await nextTick();
-    confetti.value = true;
-};
 
 const cards = cardset.reduce(
     (acc, curr) =>
@@ -142,9 +132,7 @@ export default defineComponent({
         mute: function () {
             this.isMuted = !this.isMuted;
         },
-        explodeConfetti: function(){
-
-        },
+        explodeConfetti: function () {},
         restart: function () {
             this.cards = shuffle(
                 cards.map((card) => {
@@ -162,12 +150,9 @@ export default defineComponent({
         },
         setVictoryModalState: function (state: boolean) {
             this.showVictoryModal = state;
-
         },
         won: function () {
             this.setVictoryModalState(true);
-            //Confetti
-            explode();
         },
         playSound: function (src: string) {
             (this.$refs.audio as HTMLAudioElement).src = src;
