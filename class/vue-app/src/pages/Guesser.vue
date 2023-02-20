@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 
 console.log('here 2');
 
-const deckID = 'qvtumxf6cmqe';
+const deckID = "681glf5wrfni";
 const lastCard = ref(null);
 
 const score = ref(0);
@@ -21,14 +21,14 @@ async function drawCard() {
   const { cards } = await fetch(drawCardAPI.value).then((r) => r.json());
   lastCard.value = cards[0];
 
-  validateResult(lastCard.suit);
+  validateResult(cards[0].suit);
 }
 
 function validateResult(suit) {
   const reds = ['HEARTS', 'DIAMONDS'];
   const blacks = ['SPADES', 'CLUBS'];
 
-  console.log('Validate');
+  console.log('Validate', suit, currentGuess.value);
 
   if (currentGuess.value == 'RED') {
     return reds.includes(suit) ? score.value++ : null;
