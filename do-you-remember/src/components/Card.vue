@@ -2,7 +2,7 @@
 
 <template>
     <div
-        class="flex-1 p-6 rounded-lg justify-center items-center shadow-lg bg-primary-900 max-w-sm hover:bg-hovered aspect-square flex transform transition duration-200 hover:scale-[103%]"
+        class="flex-1 p-6 rounded-lg justify-center items-center shadow-lg bg-primary-900 md:bg-primary-200 max-w-sm hover:bg-hovered aspect-square flex transform transition duration-200 hover:scale-[103%]"
     >
         <div v-if="data.isSelected == true">
             <h5 class="text-gray-800 text-xl leading-tight font-medium mb-4">

@@ -28,9 +28,9 @@
             cancelPrompt="Yes, let me see!"
         />
 
-        <div class="flex flex-row space-x-10 mb-3 justify-center items-center">
+        <div class="flex flex-row mb-3 space-x-10 max-sm:space-x-0 justify-center max-sm:justify-between items-center">
             <button
-                class="transform transition duration-200 hover:scale-110"
+                class="max-sm:scale-75 transform transition duration-200 hover:scale-110"
                 v-on:click="setRestartModalState(true)"
             >
                 <svg
@@ -44,10 +44,10 @@
                     />
                 </svg>
             </button>
-            <h1 class="text-4xl flex-auto text-title">Do you remember</h1>
-            <h2 class="text-xl">Turn: {{ turns }}</h2>
+            <h1 class="max-sm:text-lg sm:text-2xl md:text-4xl md:my-4 text-title">Do you remember</h1>
+            <h2 class="max-sm:text-lg sm:text-2xl md:text-4xl">Turn: {{ turns }}</h2>
             <button
-                class="transform transition duration-200 hover:scale-110"
+                class="max-sm:scale-75 transform transition duration-200 hover:scale-110"
                 v-on:click="mute()"
             >
                 <svg
@@ -79,7 +79,7 @@
                 </svg>
             </button>
         </div>
-        <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
+        <div class="grid md:mx-10 md:grid-cols-4 sm:grid-cols-2 max-sm:grid-cols-2 gap-4 justify-center">
             <div v-for="card in cards">
                 <Card :data="card" v-on:click="clickCard(card)" />
             </div>

@@ -14,7 +14,7 @@ This repo contains two main folders: class and do-you-remember; Which correspond
 
 ## Technologies
 
-It was made using Typescript, Vue, Vite, tailwind and other libraries.
+It was made using Typescript, Vue, Vite, tailwind and other libraries. [Here is the Figma file for the design](https://www.figma.com/file/teCDBp5TnN2OzE98tbwUtK/Do-You-Remember?node-id=0%3A1&t=3QCFrKOqkPJ3sXMc-1)
 
 ## Authors and acknowledgment
 Me, Ana Bonavides Aguilar, was the developer. And shotout to Giocko for helping out with the songs curation!
